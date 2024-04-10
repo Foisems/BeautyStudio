@@ -1,0 +1,279 @@
+﻿<Window x:Class="Radiant_Beauty_Studio.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Radiant_Beauty_Studio.View"
+        mc:Ignorable="d"
+        Title="Window1"
+        Height="800"
+        Width="1300"
+        MinHeight="800"
+        MinWidth="1300"
+        Closing="Window_Closing">
+
+    <Grid Background="#FFFFEEFC">
+        <Grid Margin="10">
+
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="0.08*"/>
+            </Grid.RowDefinitions>
+
+            <TabControl x:Name="tabControl"
+                        Grid.Column="0"
+                        TabStripPlacement="Left"
+                        SelectionChanged="tabControl_SelectionChanged">
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Height"
+                                Value="50" />
+                        <Setter Property="Width"
+                                Value="170" />
+                        <Setter Property="Background"
+                                Value="#fcece1" />
+                        <Setter Property="FontSize"
+                                Value="13" />
+                    </Style>
+                </TabControl.Resources>
+                <TabItem x:Name="appTabItem"
+                         Header="Записи"
+                         IsSelected="True">
+                    <Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+
+                            <DataGrid Grid.Row="1"
+                                      Grid.ColumnSpan="4"
+                                      Margin="10"
+                                      AutoGenerateColumns="False"
+                                      Name="dataGrid"
+                                      IsReadOnly="True"
+                                      SelectionMode="Single">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Дата"
+                                                        Width="150"
+                                                        Binding="{Binding Date}" />
+                                    <DataGridTextColumn Header="Имя клиента"
+                                                        Width="100"
+                                                        Binding="{Binding Client.FirstName}" />
+                                    <DataGridTextColumn Header="Фамилия клиента"
+                                                        Width="100"
+                                                        Binding="{Binding Client.Surname}" />
+                                    <DataGridTextColumn Header="Отчество клиента"
+                                                        Width="100"
+                                                        Binding="{Binding Client.Patronymic}" />
+                                    <DataGridTextColumn  Header="Номер клиента"
+                                                         Width="100"
+                                                         Binding="{Binding Client.PhoneNumber}" />
+                                    <DataGridTextColumn Header="Услуга"
+                                                        Width="230"
+                                                        Binding="{Binding Service.Name}" />
+                                    <DataGridTextColumn Header="Цена"
+                                                        Width="70"
+                                                        Binding="{Binding Service.Price}" />
+                                    <DataGridTextColumn Header="Имя сотрудника"
+                                                        Width="100"
+                                                        Binding="{Binding Staffer.FirstName}" />
+                                    <DataGridTextColumn Header="Фамилия сотрудника"
+                                                        Width="100"
+                                                        Binding="{Binding Staffer.Surname}" />
+                                    <DataGridTextColumn Header="Отчество сотрудника"
+                                                        Width="*"
+                                                        Binding="{Binding Staffer.Patronymic}" />
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+
+                <TabItem x:Name="serviceTabItem"
+                         Header="Услуги">
+                    <Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+
+                            <DataGrid Grid.Row="1"
+                                      Grid.ColumnSpan="4"
+                                      Margin="10"
+                                      AutoGenerateColumns="False"
+                                      Name="dataGrid1"
+                                      IsReadOnly="True"
+                                      SelectionMode="Single">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Название"
+                                                        Width="220"
+                                                        Binding="{Binding Name}" />
+                                    <DataGridTextColumn Header="Цена"
+                                                        Width="150"
+                                                        Binding="{Binding Price}" />
+                                    <DataGridTextColumn Header="Длительность"
+                                                        Width="250"
+                                                        Binding="{Binding Time}" />
+                                    <DataGridTextColumn  Header="Тип услуги"
+                                                         Width="*"
+                                                         Binding="{Binding TypeService.Name}" />
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+
+                <TabItem x:Name="clientTabItem"
+                         Header="Клиенты">
+                    <Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+
+                            <DataGrid Grid.Row="1"
+                                      Grid.ColumnSpan="4"
+                                      Margin="10"
+                                      AutoGenerateColumns="False"
+                                      Name="dataGrid2"
+                                      IsReadOnly="True"
+                                      SelectionMode="Single">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Имя"
+                                                        Width="100"
+                                                        Binding="{Binding FirstName}" />
+                                    <DataGridTextColumn Header="Фамилия"
+                                                        Width="100"
+                                                        Binding="{Binding Surname}" />
+                                    <DataGridTextColumn  Header="Отчество"
+                                                         Width="100"
+                                                         Binding="{Binding Patronymic}" />
+                                    <DataGridTextColumn Header="Номер телефона"
+                                                        Width="100"
+                                                        Binding="{Binding PhoneNumber}" />
+                                    <DataGridTextColumn Header="Дата рождения"
+                                                        Width="*"
+                                                        Binding="{Binding BirthDate, StringFormat=d}" />
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Сотрудники"
+                         x:Name="stafferTabItem">
+                    <Grid>
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                           
+
+                            <DataGrid Grid.Row="1"
+                                      Grid.ColumnSpan="4"
+                                      Margin="10"
+                                      AutoGenerateColumns="False"
+                                      Name="dataGrid3"
+                                      IsReadOnly="True"
+                                      SelectionMode="Single">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Имя"
+                                                        Width="100"
+                                                        Binding="{Binding FirstName}" />
+                                    <DataGridTextColumn Header="Фамилия"
+                                                        Width="100"
+                                                        Binding="{Binding Surname}" />
+                                    <DataGridTextColumn  Header="Отчество"
+                                                         Width="100"
+                                                         Binding="{Binding Patronymic}" />
+                                    <DataGridTextColumn Header="Номер телефона"
+                                                        Width="100"
+                                                        Binding="{Binding PhoneNumber}" />
+                                    <DataGridTextColumn Header="Должность"
+                                                        Width="200"
+                                                        Binding="{Binding Staff.Name}" />
+                                    <DataGridTextColumn  Header="Зарплата"
+                                                         Width="*"
+                                                         Binding="{Binding Staff.Salary}" />
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+
+            </TabControl>
+
+            <Grid Grid.Row="1" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="5*"  />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+            
+                <Button Content="Выход"
+                        Grid.Column="0"
+                        FontSize="25"
+                        Click="Button_Click" />
+
+                <Button x:Name="addBtn"
+                        Content="Добавить"
+                        Grid.Column="3"
+                        Margin="4,0,4,0"
+                        FontSize="25"
+                        Click="addBtn_Click" />
+                <Button x:Name="delBtn"
+                        Content="Удалить"
+                        Grid.Column="2"
+                        Margin="4,0,4,0"
+                        FontSize="25" />
+                <Button x:Name="printBtn"
+                        Content="Печать"
+                        Grid.Column="5"
+                        Margin="4,0,4,0"
+                        FontSize="25"
+                        Click="Print"/>
+                <Button x:Name="updateBtn"
+                        Content="Обновить"
+                        Grid.Column="4"
+                        Margin="4,0,4,0"
+                        FontSize="25" />
+
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
