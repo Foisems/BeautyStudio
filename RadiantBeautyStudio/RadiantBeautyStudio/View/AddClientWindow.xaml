@@ -3,14 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Radiant_Beauty_Studio.View"
+        xmlns:local="clr-namespace:RadiantBeautyStudio.View"
         mc:Ignorable="d"
-        Title="AddClientWindow" Height="550" Width="400"
+        Title="Добавить клиента" Height="550" Width="400"
         MaxHeight="550" MaxWidth="400"
         MinHeight="550" MinWidth="400"
         Background="#FFFFEEFC"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize"
+        Closing="Window_Closing">
+ 
     <Grid Margin="15,30">
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -21,16 +23,19 @@
             <RowDefinition Height="20"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Label Content="Имя:"
+        <Label x:Name="addFirstName"
+               Content="Имя:"
                HorizontalAlignment="Center"
                FontFamily="Garamond"
                FontSize="25"/>
-        <Label Content="Фамилия:" 
+        <Label x:Name="addSurname"
+               Content="Фамилия:" 
                Grid.Row="1"
                HorizontalAlignment="Center"
                FontFamily="Garamond"
                FontSize="25"/>
-        <Label Content="Отчество:"
+        <Label x:Name="addPatronymic"
+               Content="Отчество:"
                Grid.Row="2"
                HorizontalAlignment="Center"
                FontFamily="Garamond"
@@ -48,27 +53,37 @@
 
         <TextBox x:Name="tbFirstName"
                  VerticalAlignment="Bottom"
-                 Margin="50,0" />
+                 Margin="50,0"
+                 Text="{Binding FirstName}"/>
         <TextBox x:Name="tbSurname"
                  VerticalAlignment="Bottom"
                  Margin="50,0"
-                 Grid.Row="1" />
+                 Grid.Row="1"
+                 Text="{Binding Surname}"/>
         <TextBox x:Name="tbPatronymic"
                  VerticalAlignment="Bottom"
                  Margin="50,0"
-                 Grid.Row="2" />
+                 Grid.Row="2"
+                 Text="{Binding Patronymic}"/>
         <TextBox x:Name="tbPhone"
                  VerticalAlignment="Bottom"
                  Margin="50,0"
-                 Grid.Row="3" />
+                 Grid.Row="3"
+                 Text="{Binding PhoneNumber}"/>
         <DatePicker x:Name="dpBirthDate"
-                  VerticalAlignment="Bottom"
-                  Margin="50,0"
-                  Height="30"
-                  Grid.Row="4" />
+                    VerticalAlignment="Bottom"
+                    Margin="50,0"
+                    Height="30"
+                    Grid.Row="4"
+                    Text="{Binding BirthDate}"
+                   >
+            
+        </DatePicker>
 
-        <Button Grid.Row="6" 
-                Content="Добавить"
-                Margin="60, 10"/>
+        <Button x:Name="btnSave"
+                Grid.Row="6" 
+                Content="Сохранить"
+                Margin="60, 10"
+                Click="btnSave_Click" />
     </Grid>
 </Window>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RadiantBeautyStudio.View"
         mc:Ignorable="d"
-        Title="AddAppWindow"
+        Title="Добавить запись"
         Height="600"
         Width="450"
         MaxHeight="600"
@@ -23,7 +23,6 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
-            <RowDefinition />
         </Grid.RowDefinitions>
         <StackPanel>
             <Label  Content="Клиент:"
@@ -31,10 +30,24 @@
                     FontFamily="Garamond"
                     FontSize="25" />
             <ComboBox x:Name="ComboClient"
-                      DisplayMemberPath="Name"
+                      ItemsSource="{Binding Client}"
                       Margin="20,0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1} {2}">
+                                    <Binding Path="FirstName" x:Name="FirstName" />
+                                    <Binding Path="Surname" />
+                                    <Binding Path="Patronymic" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
 
             </ComboBox>
+                
             <Button x:Name="btnAddClient"
                     Margin="70, 5"
                     Click="btnAddClient_Click">Добавить клиента</Button>
@@ -45,9 +58,23 @@
                     HorizontalAlignment="Center"
                     FontFamily="Garamond"
                     FontSize="25" />
-            <ComboBox x:Name="ComboStafefr"
-                      DisplayMemberPath="Name"
-                      Margin="20,0"></ComboBox>
+            <ComboBox x:Name="ComboStaffer"
+                      ItemsSource="{Binding Staffer}"
+                      Margin="20,0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1} {2}">
+                                    <Binding Path="FirstName" />
+                                    <Binding Path="Surname" />
+                                    <Binding Path="Patronymic" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </StackPanel>
         <StackPanel Grid.Row="2"
                     VerticalAlignment="Center">
@@ -57,6 +84,7 @@
                     FontSize="25" />
             <ComboBox x:Name="ComboService"
                       DisplayMemberPath="Name"
+                      SelectedItem="{Binding Service}"
                       Margin="20,0"></ComboBox>
         </StackPanel>
         <StackPanel Grid.Row="3"
@@ -69,22 +97,26 @@
                         VerticalAlignment="Bottom"
                         Margin="20,0"
                         Height="30"
-                        Grid.Row="4" />
+                        Grid.Row="4">
+                <DatePicker.Resources>
+                    <Style TargetType="{x:Type DatePickerTextBox}">
+                        <Setter Property="Control.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <TextBox x:Name="PART_TextBox"
+                                             Text="{Binding Path=SelectedDate, StringFormat='dd MMM yyyy HH:mm', RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DatePicker.Resources>
+            </DatePicker>
         </StackPanel>
-        <StackPanel Grid.Row="4"
-                    VerticalAlignment="Center">
-            <Label  Content="Время (формат: 00:00:00):"
-                    HorizontalAlignment="Center"
-                    FontFamily="Garamond"
-                    FontSize="25" />
-            <TextBox x:Name="dpBirthDate"
-                     VerticalAlignment="Bottom"
-                     Margin="20,0"
-                     Height="30"
-                     Grid.Row="4" />
-        </StackPanel>
-        <Button Grid.Row="5"
-                Content="Добавить"
-                Margin="60,10" />
+        
+        <Button x:Name="btnAdd"
+                Grid.Row="4"
+                Content="Сохранить"
+                Margin="60,10"
+                Click="btnAdd_Click" />
     </Grid>
 </Window>

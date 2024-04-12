@@ -997,7 +997,8 @@
                         <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False"
                                PopupAnimation="Slide" Margin="3,-8,-3,8">
                             <Grid Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
-                                <Border x:Name="DropDownBorder" Background="{StaticResource ControlLightBackground}" BorderThickness="1" CornerRadius="3" Margin="0,3,0,3"
+                                <Border x:Name="DropDownBorder"
+                                        Background="#e39899" BorderThickness="1" CornerRadius="3" Margin="0,3,0,3"
                                         BorderBrush="{StaticResource ControlBorderBrush}"/>
                                 <ScrollViewer Margin="0,3" SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />

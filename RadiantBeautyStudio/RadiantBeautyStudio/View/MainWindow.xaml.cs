@@ -23,7 +23,7 @@ namespace Radiant_Beauty_Studio.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        private AddAppWindow addAppWindow;
 
         private int idRole = 0;
         public MainWindow(int IdRole)
@@ -52,7 +52,7 @@ namespace Radiant_Beauty_Studio.View
         {
             App.Current.Shutdown();
         }
-
+        // Выход
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
@@ -74,6 +74,7 @@ namespace Radiant_Beauty_Studio.View
                 
                 using (var context = new BeautyStudioDBEntities())
                 {
+                    //печать записей
                     if(appTabItem.IsSelected)
                     {
                         var allItem = context.Appointment.ToList();
@@ -101,6 +102,7 @@ namespace Radiant_Beauty_Studio.View
                             doc.Blocks.Add(new BlockUIContainer(new Separator()));
                         }
                     }
+                    //печать услуг
                     if (serviceTabItem.IsSelected)
                     {
                         var allItem = context.Service.ToList();
@@ -124,6 +126,7 @@ namespace Radiant_Beauty_Studio.View
                             doc.Blocks.Add(new BlockUIContainer(new Separator()));
                         }
                     }
+                    //печать клиентов
                     if (clientTabItem.IsSelected)
                     {
                         var allItem = context.Client.ToList();
@@ -143,12 +146,13 @@ namespace Radiant_Beauty_Studio.View
                                 paragraph.Inlines.Add(new LineBreak());
                                 paragraph.Inlines.Add(new Run("Номер телефона: " + itemInfo.PhoneNumber));
                                 paragraph.Inlines.Add(new LineBreak());
-                                paragraph.Inlines.Add(new Run("Дата рождения: " + itemInfo.BirthDate.ToShortDateString()));
+                                paragraph.Inlines.Add(new Run("Дата рождения: " + itemInfo.BirthDate?.ToShortDateString()));
                             }
                             doc.Blocks.Add(paragraph);
                             doc.Blocks.Add(new BlockUIContainer(new Separator()));
                         }
                     }
+                    //печать сотрудников
                     if (stafferTabItem.IsSelected)
                     {
                         var allItem = context.Staffer.ToList();
@@ -185,17 +189,21 @@ namespace Radiant_Beauty_Studio.View
 
         }
 
+        //добавление записи
+
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
             if (appTabItem.IsSelected)
             {
-                AddAppWindow addAppWindow = new AddAppWindow();
+                addAppWindow = new AddAppWindow(null);
                 addAppWindow.ShowDialog();
             }
         }
 
         private int item = 0;
 
+
+        //вывод информации в tabcontrol
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
@@ -252,6 +260,61 @@ namespace Radiant_Beauty_Studio.View
                     break;
                 default:
                     return;
+            }
+        }
+
+       // обновление
+
+        private void updateBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //записи
+            if (appTabItem.IsSelected)
+            {
+                BeautyStudioDBEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
+                dataGrid.ItemsSource = BeautyStudioDBEntities.GetContext().Appointment.ToList();
+            }
+            //клиенты
+            if (clientTabItem.IsSelected)
+            {
+                BeautyStudioDBEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
+                dataGrid2.ItemsSource = BeautyStudioDBEntities.GetContext().Client.ToList();
+            }
+        }
+
+        //удаление записи
+
+        private void delBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (appTabItem.IsSelected)
+            {
+                var delApp = dataGrid.SelectedItems.Cast<Appointment>().ToList();
+                if (MessageBox.Show($"Вы точно хотите удалить данные?", "Предупреждение", MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        BeautyStudioDBEntities.GetContext().Appointment.RemoveRange(delApp);
+                        BeautyStudioDBEntities.GetContext().SaveChanges();
+                        MessageBox.Show("Данные удалены.");
+                        dataGrid.ItemsSource = BeautyStudioDBEntities.GetContext().Appointment.ToList();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
+                }
+            }
+        }
+       
+
+        // Редактирование записи
+        private void btnChangeApp_Click(object sender, RoutedEventArgs e)
+        {
+            if (addAppWindow == null || !addAppWindow.IsVisible)
+            {
+                addAppWindow = new AddAppWindow((sender as Button).DataContext as Appointment);
+                addAppWindow.Title = "Изменение записи";
+                addAppWindow.Show();
             }
         }
     }

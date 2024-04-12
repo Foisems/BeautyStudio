@@ -22,7 +22,7 @@
     <Property Name="Surname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Patronymic" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="PhoneNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="BirthDate" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Appointment" Relationship="Self.FK_Appointment_Client" FromRole="Client" ToRole="Appointment" />
   </EntityType>
   <EntityType Name="Role">
